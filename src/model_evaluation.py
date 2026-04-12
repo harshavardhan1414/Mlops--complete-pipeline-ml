@@ -7,9 +7,9 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, roc_a
 import logging
 import yaml
 # from dvclive import Live
-
+base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 # Ensure the "logs" directory exists
-log_dir = 'logs'
+log_dir = os.path.join(base_dir,"logs")
 os.makedirs(log_dir, exist_ok=True)
 
 # logging configuration
@@ -116,8 +116,13 @@ def main():
         base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
         params_path = os.path.join(base_dir, 'params.yaml')
         params = load_params(params_path=params_path)
-        clf = load_model('./models/model.pkl')
-        test_data = load_data('./data/processed/test_tfidf.csv')
+        # clf = load_model('./models/model.pkl')
+        # test_data = load_data('./data/processed/test_tfidf.csv')
+        model_path = os.path.join(base_dir, 'models', 'model.pkl')
+        test_path = os.path.join(base_dir, 'data', 'processed', 'test_tfidf.csv')
+
+        clf = load_model(model_path)
+        test_data = load_data(test_path)
         
         X_test = test_data.iloc[:, :-1].values
         y_test = test_data.iloc[:, -1].values

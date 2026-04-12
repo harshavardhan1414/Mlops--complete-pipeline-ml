@@ -5,9 +5,9 @@ import pickle
 import logging
 from sklearn.ensemble import RandomForestClassifier
 import yaml
-
+base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 # Ensure the "logs" directory exists
-log_dir = 'logs'
+log_dir = os.path.join(base_dir,"logs")
 os.makedirs(log_dir, exist_ok=True)
 
 # logging configuration
@@ -122,13 +122,16 @@ def main():
         # params = load_params('params.yaml')['model_training']
         base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
         params = load_params(os.path.join(base_dir, 'params.yaml'))["model_training"]
-        train_data = load_data('./data/processed/train_tfidf.csv')
+        # train_data = load_data('./data/processed/train_tfidf.csv')
+        train_path = os.path.join(base_dir, 'data', 'processed', 'train_tfidf.csv')
+        train_data = load_data(train_path)
+        model_save_path = os.path.join(base_dir, 'models', 'model.pkl')
         X_train = train_data.iloc[:, :-1].values
         y_train = train_data.iloc[:, -1].values
 
         clf = train_model(X_train, y_train, params)
         
-        model_save_path = 'models/model.pkl'
+        # model_save_path = 'models/model.pkl'
         save_model(clf, model_save_path)
 
     except Exception as e:

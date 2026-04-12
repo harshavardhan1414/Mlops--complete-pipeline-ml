@@ -3,9 +3,9 @@ import os
 from sklearn.feature_extraction.text import TfidfVectorizer
 import logging
 import yaml
-
+base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 # Ensure the "logs" directory exists
-log_dir = 'logs'
+log_dir = os.path.join(base_dir,"logs")
 os.makedirs(log_dir, exist_ok=True)
 
 # logging configuration
@@ -102,9 +102,13 @@ def main():
         # max_features = params['feature_eng']['max_features']
         # max_features = 50
 
-        train_data = load_data('./data/interim/train_processed.csv')
-        test_data = load_data('./data/interim/test_processed.csv')
+        # train_data = load_data('./data/interim/train_processed.csv')
+        # test_data = load_data('./data/interim/test_processed.csv')
+        train_path = os.path.join(base_dir, 'data', 'interim', 'train_processed.csv')
+        test_path = os.path.join(base_dir, 'data', 'interim', 'test_processed.csv')
 
+        train_data = load_data(train_path)
+        test_data = load_data(test_path)
         train_df, test_df = apply_tfidf(train_data, test_data, params)
 
         save_data(train_df, os.path.join("./data", "processed", "train_tfidf.csv"))

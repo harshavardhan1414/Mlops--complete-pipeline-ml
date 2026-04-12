@@ -9,9 +9,12 @@ from sklearn.preprocessing import LabelEncoder
 # Download required nltk datasets
 nltk.download('stopwords')
 nltk.download('punkt')
+import os
+
+base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 # Ensure the "logs" directory exists
-log_dir = 'logs'
+log_dir = os.path.join(base_dir,"logs")
 os.makedirs(log_dir, exist_ok=True)
 
 # Setting up logger
@@ -88,8 +91,13 @@ def main(text_column='text', target_column='target'):
     """
     try:
         # Fetch the data from data/raw
-        train_data = pd.read_csv('./data/raw/train.csv')
-        test_data = pd.read_csv('./data/raw/test.csv')
+        # train_data = pd.read_csv('./data/raw/train.csv')
+        # test_data = pd.read_csv('./data/raw/test.csv')
+        train_path = os.path.join(base_dir, 'data', 'raw', 'train.csv')
+        test_path = os.path.join(base_dir, 'data', 'raw', 'test.csv')
+
+        train_data = pd.read_csv(train_path)
+        test_data = pd.read_csv(test_path)
         logger.debug('Data loaded properly')
 
         # Transform the data
@@ -97,7 +105,7 @@ def main(text_column='text', target_column='target'):
         test_processed_data = preprocess_df(test_data, text_column, target_column)
 
         # Store the data inside data/processed
-        data_path = os.path.join("./data", "interim")
+        data_path = os.path.join(base_dir,"data", "interim")
         os.makedirs(data_path, exist_ok=True)
         
         train_processed_data.to_csv(os.path.join(data_path, "train_processed.csv"), index=False)
