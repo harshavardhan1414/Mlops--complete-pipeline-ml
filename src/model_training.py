@@ -140,3 +140,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+#  with open(file_path, mode) as f:
+#     opens file
+# closes file after work (no memory leak)
