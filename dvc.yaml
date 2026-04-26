@@ -53,10 +53,10 @@ stages:
 # deps   → What this stage NEEDS to run
 # params → What can CHANGE behavior (hyperparameters/config)
 # outs   → What this stage CREATES
-params:
-- dvclive/params.yaml
-metrics:
-- dvclive/metrics.json
-plots:
-- dvclive/plots/metrics:
-    x: step
+# params:
+# - dvclive/params.yaml
+# metrics:
+# - dvclive/metrics.json
+# plots:
+# - dvclive/plots/metrics:
+#     x: step

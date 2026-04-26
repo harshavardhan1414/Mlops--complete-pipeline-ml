@@ -3,3 +3,34 @@ building pipeline:
 2>add src folder along with all components
 3>add data,model,reports dircts to .gitignore file
 4>now git add,commit push
+
+setting up dvc pipeline(without params)
+5>create dvc.yaml file and add stages to it
+6>dvc init them do dvc repro to test the pipeline automation.(check dvc dag)
+7.now git add,commit,push
+
+setting up dvc pipeline(with parms)
+8.add params.yaml file
+9.add the params setup
+10.do "dvc repro" again to test pipeline along with the params
+11.now git add,commit,push
+
+exp with dvc
+12. pip install dvclive
+13.add dvclive code block
+14. do "dvc exp run" it will create dvc.yaml and dvclive directory(each run will be considered as an exp)
+15. do "dvc exp show" on terminal to see the exp or use extension on vscode
+16. do "dvc exp remove{exp-name}" to remove exp(optional) | "dvc exp apply{exp-name}" to reproduce prev exp
+17. change params,re-run code
+18. git add,commit,push
+
+
+19> login aws console
+20> create an i am user 
+21> creat s3
+22>pip install dvc[s3]
+23>pip install awscli
+24> aws configure
+25> dvc remote add -d dvcstore s3://bucketname
+26>dvc commit -push the exp outcome that you want to keep
+27>finally git add,commit.push
